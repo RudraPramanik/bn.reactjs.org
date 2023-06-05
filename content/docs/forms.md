@@ -8,8 +8,7 @@ redirect_from:
   - "tips/controlled-input-null-value.html"
   - "docs/forms-zh-CN.html"
 ---
-
-HTML form elements work a bit differently from other DOM elements in React, because form elements naturally keep some internal state. For example, this form in plain HTML accepts a single name:
+এখানে HTML ফর্ম এলিমেন্টসগুলি  React এর   অন্যান্য DOM এলিমেন্টস থেকে একটু ভিন্নভাবে কাজ করে, কারণ Form এলিমেন্টস  স্বাভাবিকভাবেই কিছু internal state ধারণ করে। উদাহরণস্বরূপ, এই  HTML ফর্মটি একটি single name গ্রহণ করে:
 
 ```html
 <form>
@@ -21,15 +20,16 @@ HTML form elements work a bit differently from other DOM elements in React, beca
 </form>
 ```
 
-This form has the default HTML form behavior of browsing to a new page when the user submits the form. If you want this behavior in React, it just works. But in most cases, it's convenient to have a JavaScript function that handles the submission of the form and has access to the data that the user entered into the form. The standard way to achieve this is with a technique called "controlled components".
+এই ফর্মটির default HTML আচরণ হচ্ছে ইউজারের ফর্ম সাবমিট করার সময় নতুন পৃষ্ঠায় ব্রাউজ করা। রিয়েক্টে এই বিহ্যাভিয়ারটি সহজভাবে কাজ করে। তবে বেশিরভাগ ক্ষেত্রে, ফর্মে  ইউজারের দ্বারা ইনপুট করা ডেটা অ্যাক্সেস করার জন্য জাভাস্ক্রিপ্ট ফাংশন নেওয়া সুবিধাজনক । এটি পাওয়ার জন্য প্রমাণিত পদ্ধতি হল "কন্ট্রোলড কম্পোনেন্টস" নামক একটি টেকনিক।
+
 
 ## Controlled Components {#controlled-components}
 
-In HTML, form elements such as `<input>`, `<textarea>`, and `<select>` typically maintain their own state and update it based on user input. In React, mutable state is typically kept in the state property of components, and only updated with [`setState()`](/docs/react-component.html#setstate).
+HTML-তে, `<input>`, `<textarea>`, এবং `<select>` এর মতো ফর্ম উপাদানগুলি সাধারণতঃ নিজস্ব state ধারন করে এবং ইউজারের ইনপুটের উপর ভিত্তি করে এটি আপডেট করে। React-এ, কম্পনেন্টের নিজের state সাধারণতঃ কম্পোনেন্টগুলির state প্রপার্টিতে সংরক্ষিত থাকে, এবং শুধুমাত্র [`setState()`](/docs/react-component.html#setstate).-এর মাধ্যমে আপডেট করা হয়।
 
-We can combine the two by making the React state be the "single source of truth". Then the React component that renders a form also controls what happens in that form on subsequent user input. An input form element whose value is controlled by React in this way is called a "controlled component".
+আমরা এই দুটি সংযোজন করতে পারি রিয়েক্ট স্টেটকে "single source of truth" বানিয়ে। তারপরে রিয়েক্ট কম্পোনেন্টটি ফর্ম কে রেন্ডার করে সেই ফর্মে পরবর্তী ইউজার ইনপুটে কী ঘটছে তা নিয়ন্ত্রণ করে। এইভাবে রিয়েক্ট দ্বারা নিয়ন্ত্রিত হয়ে এমন একটি ইনপুট ফর্ম উপাদানকে "controlled component" বলা হয়।
 
-For example, if we want to make the previous example log the name when it is submitted, we can write the form as a controlled component:
+উদাহরণস্বরূপ, যদি আমরা পূর্ববর্তী উদাহরণের মতোই নামটি সাবমিট দিয়ে লগ করতে চাই, তবে আমরা ফর্মটি একটি কন্ট্রোলড কম্পোনেন্ট হিসাবে লিখতে পারি এভাবে:
 
 ```javascript{4,10-12,21,24}
 class NameForm extends React.Component {
@@ -66,6 +66,7 @@ class NameForm extends React.Component {
 
 [**Try it on CodePen**](https://codepen.io/gaearon/pen/VmmPgp?editors=0010)
 
+value এট্রিবিউটটি আমাদের ফর্ম element সেট করা হয়েছে, এবং প্রদর্শিত মান সর্বদা this.state.value হবে, এটি রিয়েক্ট স্টেটকে source of truth বানিয়ে দেয় । handleChange ফাংশনটি প্রতিটি টাইপ করার সময় চালু হয়ে রিয়েক্ট স্টেট আপডেট করার জন্য কার্যকরী, এবং ইউজার টাইপ করার সাথে সাথে প্রদর্শিত মানও আপডেট হবে।
 Since the `value` attribute is set on our form element, the displayed value will always be `this.state.value`, making the React state the source of truth. Since `handleChange` runs on every keystroke to update the React state, the displayed value will update as the user types.
 
 With a controlled component, the input's value is always driven by the React state. While this means you have to type a bit more code, you can now pass the value to other UI elements too, or reset it from other event handlers.
