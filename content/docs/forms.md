@@ -66,14 +66,13 @@ class NameForm extends React.Component {
 
 [**Try it on CodePen**](https://codepen.io/gaearon/pen/VmmPgp?editors=0010)
 
-value এট্রিবিউটটি আমাদের ফর্ম element সেট করা হয়েছে, এবং প্রদর্শিত মান সর্বদা this.state.value হবে, এটি রিয়েক্ট স্টেটকে source of truth বানিয়ে দেয় । handleChange ফাংশনটি প্রতিটি টাইপ করার সময় চালু হয়ে রিয়েক্ট স্টেট আপডেট করার জন্য কার্যকরী, এবং ইউজার টাইপ করার সাথে সাথে প্রদর্শিত মানও আপডেট হবে।
-Since the `value` attribute is set on our form element, the displayed value will always be `this.state.value`, making the React state the source of truth. Since `handleChange` runs on every keystroke to update the React state, the displayed value will update as the user types.
+value এট্রিবিউটটি আমাদের ফর্ম element এ সেট করা হয়েছে, এবং প্রদর্শিত মান সর্বদা this.state.value হবে, এটি রিয়েক্ট স্টেটকে source of truth বানিয়ে দেয় । handleChange ফাংশনটি প্রতিটি keystroke আপডাট করার সময় চালু হয় এবং রিয়েক্ট স্টেট আপডেট করে, এবং ইউজার টাইপ করার সাথে সাথে প্রদর্শিত মানও আপডেট হয়।
 
-With a controlled component, the input's value is always driven by the React state. While this means you have to type a bit more code, you can now pass the value to other UI elements too, or reset it from other event handlers.
+একটি কন্ট্রোলড কম্পোনেন্টে, ইনপুটের মান সর্বদা React State দ্বারা নির্ধারিত হয়। এর মানে কিছু বেশি কোড লিখতে হবে, কিন্তু এখন আপনি ইনপুট ভ্যালু অন্যান্য UI এলিমেন্টসের জন্যও পাঠাতে পারবেন, বা অন্য ইভেন্ট হ্যান্ডলার থেকে রিসেট করতে পারবেন।
 
 ## The textarea Tag {#the-textarea-tag}
 
-In HTML, a `<textarea>` element defines its text by its children:
+HTML-এ, `<textarea>` এলিমেন্ট টেক্সটটি নিজের চাইল্ডের মাধ্যমে নির্ধারণ করে।
 
 ```html
 <textarea>
@@ -81,7 +80,8 @@ In HTML, a `<textarea>` element defines its text by its children:
 </textarea>
 ```
 
-In React, a `<textarea>` uses a `value` attribute instead. This way, a form using a `<textarea>` can be written very similarly to a form that uses a single-line input:
+React-এ, `<textarea>` এর পরিবর্তে value এট্রিবিউট ব্যবহার করে। এই ভাবে, `<textarea>` ব্যবহার করা একটি ফর্মকে, একটি সিঙ্গল-লাইন ইনপুট ব্যবহার করা ফর্মের মতো লিখা যেতে পারে।
+
 
 ```javascript{4-6,12-14,26}
 class EssayForm extends React.Component {
